@@ -47,26 +47,49 @@ Tracks all actions by users:
 
 ## API Endpoints
 
-### 1. `GET /hello/`
-Simple hello message for testing API connectivity.
 
-### 2. `POST /customers/signup/`
-Registers a new customer.
 
-**Request Schema:**
-```json
-{
-  "username": "john_doe",
-  "email": "john@example.com",
-  "phone_number": "9876543210",
-  "password": "securepassword",
-  "full_name": "John Doe",
-  "date_of_birth": "1990-01-01",
-  "address": "123 Main St",
-  "city": "CityName",
-  "state": "StateName",
-  "pincode": "123456"
-}
+## APIs
+
+### 1. Upload KYC Document
+
+- **Endpoint:** `/upload/kyc/`  
+- **Method:** `POST`  
+- **Authentication:** JWT  
+- **Description:**  
+  Allows authenticated customers to upload KYC documents. Only supports document types: `aadhaar`, `pan`, `passport`.
+
+---
+
+### 2. Verify Customer KYC
+
+- **Endpoint:** `/verify/kyc/`  
+- **Method:** `POST`  
+- **Authentication:** JWT  
+- **Description:**  
+  Performs rule-based verification of all uploaded KYC documents for a given customer. Marks the customer profile as verified only if all documents pass validation.
+
+---
+
+## Verification Rules
+
+1. Document file must exist.  
+2. Document type must be one of `aadhaar`, `pan`, or `passport`.  
+3. Customer is marked verified only if all uploaded documents are valid.
+
+---
+
+## Notes
+
+- JWT authentication is required for both APIs.  
+- Audit logs track all KYC upload actions.  
+- Designed to integrate with a frontend or third-party system for managing KYC workflows.
+
+---
+
+## Author
+
+**Yaswanth Banduku**
 
 
 
